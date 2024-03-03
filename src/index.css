@@ -39,3 +39,14 @@
   margin: 40px auto;
   padding: 20px;
 }
+
+
+/* Home Page */
+
+.button-actions {
+  margin-top: 2rem;
+
+  >* {
+    margin-right: 0.5rem;
+  }
+}
