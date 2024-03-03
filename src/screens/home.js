@@ -4,6 +4,8 @@ const Home = () => {
   const title = "Home"
 
   const [name, setName] = useState('mario')
+  // hooks denoted by useHookName
+  const [clicks, setClicks] = useState(0)
 
   const toggleName = () => {
     if (name === 'mario') {
@@ -11,6 +13,10 @@ const Home = () => {
     } else {
       setName('mario')
     }
+  }
+
+  const addClicks = () => {
+    setClicks(clicks + 1)
   }
 
   const handleClick = () => {
@@ -28,8 +34,9 @@ const Home = () => {
     <div className="content">
       <h1>{title}</h1>
       <div className="button-actions">
-        <p className="on event click">{name}</p>
+        <p className="on-event-click">{name}</p>
         <button onClick={toggleName}>Toggle name</button>
+        <button onClick={addClicks}>Clicked {clicks} times</button>
         <button onClick={handleClick}>Click without parameter</button>
         {/* cannot use handleClick() as it would invoke the function without even taking place */}
         <button onClick={() => handleClickWithParam('mario')}>With Parameter</button>
