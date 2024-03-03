@@ -29,11 +29,16 @@ const HomeNew = () => {
     },
   ])
 
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter((blog) => blog.id !== id)
+    setBlogs(newBlogs)
+  }
+
   return (
     <>
       <div className="content home">
-        <BlogList blogs={blogs} title="All blogs" />
-        <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" />
+        <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
+        <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" handleDelete={handleDelete} />
       </div>
     </>
   );
