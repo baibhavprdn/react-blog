@@ -29,6 +29,12 @@ const HomeNew = () => {
     },
   ])
 
+  const [name, setName] = useState('mario')
+
+  const handleNameChange = (name) => {
+    setName(name)
+  }
+
   const handleDelete = (id) => {
     const newBlogs = blogs.filter((blog) => blog.id !== id)
     setBlogs(newBlogs)
@@ -36,14 +42,22 @@ const HomeNew = () => {
 
   useEffect(() => {
     console.log('use effect runs')
+    console.log(blogs)
     // code runs everytime the component is rendered, initially then once the state is changed
-  })
+  }, [blogs])
+  // useEffect Dependencies, 
+  //run function depending on which state specified in the dependency array are changed
 
   return (
     <>
       <div className="content home">
         <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />
-        {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" handleDelete={handleDelete} /> */}
+        {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" 
+        handleDelete={handleDelete} /> */}
+
+        <p>{name}</p>
+
+        <button onClick={() => handleNameChange('luigi')}>Click name</button>
       </div>
     </>
   );
