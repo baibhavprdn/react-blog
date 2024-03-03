@@ -13,13 +13,19 @@ const HomeNew = () => {
       title: 'Welcome party!',
       body: 'lorem ipsum...',
       author: 'Yoshi',
-      id: 1
+      id: 2
+    },
+    {
+      title: 'Bowser\'s first blog',
+      body: 'lorem ipsum...',
+      author: 'Bowser',
+      id: 3
     },
     {
       title: 'Web dev top tips',
       body: 'lorem ipsum...',
-      author: 'Bowser',
-      id: 1
+      author: 'Mario',
+      id: 4
     },
   ])
 
@@ -27,6 +33,7 @@ const HomeNew = () => {
     <>
       <div className="content home">
         <BlogList blogs={blogs} title="All blogs" />
+        <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" />
       </div>
     </>
   );
