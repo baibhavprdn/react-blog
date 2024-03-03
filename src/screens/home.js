@@ -1,5 +1,17 @@
+import { useState } from "react";
+
 const Home = () => {
   const title = "Home"
+
+  const [name, setName] = useState('mario')
+
+  const toggleName = () => {
+    if (name === 'mario') {
+      setName('luigi')
+    } else {
+      setName('mario')
+    }
+  }
 
   const handleClick = () => {
     console.log('hellow')
@@ -16,6 +28,8 @@ const Home = () => {
     <div className="content">
       <h1>{title}</h1>
       <div className="button-actions">
+        <p className="on event click">{name}</p>
+        <button onClick={toggleName}>Toggle name</button>
         <button onClick={handleClick}>Click without parameter</button>
         {/* cannot use handleClick() as it would invoke the function without even taking place */}
         <button onClick={() => handleClickWithParam('mario')}>With Parameter</button>
