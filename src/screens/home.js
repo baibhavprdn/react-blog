@@ -1,8 +1,8 @@
 const Home = () => {
-  const title = "Welcome to the dojo blog"
+  const title = "Home"
 
   return (
-    <div className="home">
+    <div className="content">
       <h1>{title}</h1>
     </div>
   );
