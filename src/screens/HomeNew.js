@@ -4,13 +4,15 @@ import BlogList from "../components/blogList";
 const HomeNew = () => {
   const [blogs, setBlogs] = useState(null)
 
-  const [name, setName] = useState('mario')
+  // const [name, setName] = useState('mario')
 
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(true)
 
-  const handleNameChange = (name) => {
-    setName(name)
-  }
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  // const handleNameChange = (name) => {
+  //   setName(name)
+  // }
 
   const handleDelete = (id) => {
     const newBlogs = blogs.filter((blog) => blog.id !== id)
@@ -25,10 +27,17 @@ const HomeNew = () => {
       setisLoading(true)
       fetch('http://localhost:8000/blogs')
         .then(response => {
+          if (!response.ok) {
+            throw Error('Could not find the url to fetch data')
+          }
+          setErrorMessage(null)
           return response.json()
         })
         .then((data) => {
           setBlogs(data)
+        })
+        .catch((error) => {
+          setErrorMessage(error.message)
         })
         .finally(() => setisLoading(false))
     }, 1000)
@@ -41,15 +50,18 @@ const HomeNew = () => {
       <div className="content home">
         {/* conditional rendering in react */}
         {
+          errorMessage && <div>Error: {errorMessage}</div>
+        }
+        {
           isLoading && <div>Loading..</div>
         }
         {blogs && <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />}
         {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" 
         handleDelete={handleDelete} /> */}
 
-        <p>{name}</p>
+        {/* <p>{name}</p>
 
-        <button onClick={() => handleNameChange('luigi')}>Click name</button>
+        <button onClick={() => handleNameChange('luigi')}>Click name</button> */}
       </div>
     </>
   );
