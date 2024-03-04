@@ -6,6 +6,8 @@ const HomeNew = () => {
 
   const [name, setName] = useState('mario')
 
+  const [isLoading, setisLoading] = useState(false)
+
   const handleNameChange = (name) => {
     setName(name)
   }
@@ -19,14 +21,18 @@ const HomeNew = () => {
     console.log('use effect runs')
     console.log(blogs)
     // code runs everytime the component is rendered, initially then once the state is changed
-    fetch('http://localhost:8000/blogs')
-      .then(response => {
-        return response.json()
-      })
-      .then((data) => {
-        setBlogs(data)
-      })
-  }, [blogs])
+    setTimeout(() => {
+      setisLoading(true)
+      fetch('http://localhost:8000/blogs')
+        .then(response => {
+          return response.json()
+        })
+        .then((data) => {
+          setBlogs(data)
+        })
+        .finally(() => setisLoading(false))
+    }, 1000)
+  }, [])
   // useEffect Dependencies, 
   //run function depending on which state specified in the dependency array are changed
 
@@ -34,6 +40,9 @@ const HomeNew = () => {
     <>
       <div className="content home">
         {/* conditional rendering in react */}
+        {
+          isLoading && <div>Loading..</div>
+        }
         {blogs && <BlogList blogs={blogs} title="All blogs" handleDelete={handleDelete} />}
         {/* <BlogList blogs={blogs.filter((blog) => blog.author === 'Mario')} title="Mario's blogs" 
         handleDelete={handleDelete} /> */}
